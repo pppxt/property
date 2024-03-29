@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.properity.mapper.BuildingMapper">
+    <!--更新-->
+    <update id="update">
+        update building
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="typeId != null and typeId != ''">
+                typeId = #{typeId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--批量删除业主信息 (1, 2, 3)-->
+    <!--遍历的集合，元素，分隔符，遍历之前拼接前括号-->
+    <delete id="delete">
+        delete
+        from building
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--条件查询-->
+    <select id="list" resultType="com.project.properity.pojo.Building">
+        select building.*,community.name as comName from building
+        left join community on building.typeId = community.id
+        <where>
+            <if test="name != null  and name != ''">
+                building.name like concat('%',#{name},'%')
+            </if>
+            <if test="comName != null  and comName != ''">
+                and community.name like concat('%',#{comName},'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+</mapper>

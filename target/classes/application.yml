@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #驱动类名称
+    url: jdbc:mysql://${ip}:3308/property?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+ip: localhost
+
+server:
+  port: 8080
+
+mybatis:
+  configuration:
+    #配置mybatis的日志, 指定输出到控制台
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #开启mybatis的驼峰命名自动映射开关 a_column ------> aCloumn
+    map-underscore-to-camel-case: true
+
+  mapper-locations:
+    #扫描所有mybatis的xml文件
+    classpath:mapper/*.xml
+
+mybatis-plus:
+  configuration:
+    #控制台打印sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+alipay:
+  appId: 9021000131617225
+  appPrivateKey: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCE/6K7ksQiqqfKnTWHZICu/U9qVbWzgURTC6et1zK/mczykcpEYHn+t1Zk5EwGlya9350MYvZ9CBjShy+mHxJWFNBaeWFqYmKSC4+yhTMDaDPWhbYNuwi3vvxqss/LjiOtZOJCfhhN7AkT5OuGoc5MRPkNk2ixgjIZebJn17dUqwk40QUC728tb9QOwpM8xzGC/fvE/oJRjDHbtum0Ef4/+N2OK4MqODvkRqGx4PdmMfwO0B3Dccx8b2P346ltaj3u2ka1BZ0t3LLkYw1dusOl0FLoplsvO+TddQnEwTfuluboTDNsa0HOB1O5X7F1JFLAc7JCgsfWefVbqlCrTDpfAgMBAAECggEAewpcrJds6H1k2adzHBy4iCtEyyUcAkM2yHVh3QvXoTZSSp7htzxh4GoQfSpPw1EWwFYdXpY3XxicjjgOturL9eMvlmPw4ZC/jEkx2YAs35wJSQ9Oi4la2VLRBo0CfFi1XPaV89nf9kbFZyhDVLxgtGKi3hJfqsi+PJ8/k54XtzVaVuILU2ehzwkaGbLswvqByBuTb+oj7KPVulR1ZTBC22vzuce3UiCLftofRcyEkcyppcUovsP4c4+j8a3MaiS/P9706TB8Je3SfcdSQBWC+NsR6APFhWR5Y4Dlk7Xj5VwyWPl5lBo9ckMn6KdobHfL9Zgut4nnPJ2aInGbXcGzQQKBgQDxs5sKwfoCRavPeTzI8iqal+P140iWaNmFbF2hJ87avkbNt8H9Y9CfM9cksmDSLo1Wv23hLcmwoH8W2VLtD+XlmD8kYwWeq7atafU+4i3jzM124c0VbxSj34Lfw9r6sWifg4t3vxh2Qsj/KMmWe0bq+LDYAfpJMt1vV4qC61xBEQKBgQCM3c1dOj/kzu0UWvaGR03w75amuI2ZU0dxEXoiYSdY3IGNBbrh2zaEMZtQyDkBh2OswadNqyDhGD3b8D0xPVz8r42Cb9ZoMQ319WjMe9aiU6chXH7xHP52fTBfETVRFCOqSLnMNqa8qYyAelQ/1D4yQrcA3L1uVrX0pkNMJMvEbwKBgGkDOeeQo8j88EryR+CeprgIKjkZCN6gq3F2xa9RFmSfqy+SGSy4g1nIMj91aO+o3ivEfD8Ln8en08/fmFH7SE1auoRaqYRo4rOxh6ZMqteAkfyG2o3ndzZD1B7Yf3nQPr6fbqcWVdB778w8smk5InTQnDUdltrayK6pgDqle62hAoGAOscqM+ZkVsMJJd820pzaJtiyEescGognXUSfo8zKMEgCPqfPbQKdYteYKUMClmK58pHzj3MCiyokVauOvQcPz9gowe6MlnkxjBnUms5ppt4k9MS1q0If460lC+YQSz6OCzXBYTbEqCBPIiTpFqEnOq2f0tpIqMvBrM3bcuA/rj0CgYAXNtox2vak+8cwWvOLsLYYITII9YIULZju7Acu/D6FUODoD6BKrDBozy0lBuBKENQntG0Ss0yUGRJe3I5C5jEws334gIIV5B3LqF+KNyw7aqyhtz8xRw0ehgVMDbChF5j4Dhd8+Lhv1adMPg3Pn+0bsm2AOa/h12ZpFnqQWNs7nQ==
+  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkA8FVFTo2jzyVUtEwZ7H0vzWy7uKW4pNFulLyDbX/GBt9FdG7lB6TQQlHZv5tqpE2EwamFVGVKmrB37kw5bLvJ/lPcbCN35CWvzNFN4wOPj1NwUrJ2DxfHGLx9th8VXJs1UDR24yzyiQYMSQ0zp+ndktZlC4WG84tZ6L2yXVfNXLaSLfEaykDN5Xg1ltpQUD6XUErd+dgs4BVYSoHxzmLsetyc0nhClYqWaw4IDo6xtpPbsnhAW67J6YQisA8G9c8LbnSf3mEuZxtsM27nQ3B8hHDjb6IJ4Yb53A7r6yEhcBXNkxKXZEBPXMiRobEKYmWbK7Yb3rhXSsAKz9a3CB0QIDAQAB
+  notifyUrl: http://7cw5vt.natappfree.cc/alipay/notify

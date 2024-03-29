@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.properity.mapper.FixMapper">
+    <!--更新-->
+    <update id="update">
+        update fix
+        <set>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="time != null and time != ''">
+                time = #{time},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="cause != null">
+                cause = #{cause},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--批量删除业主信息 (1, 2, 3)-->
+    <!--遍历的集合，元素，分隔符，遍历之前拼接前括号-->
+    <delete id="delete">
+        delete
+        from fix
+        where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--条件查询-->
+    <select id="page" resultType="com.project.properity.pojo.Fix">
+        select fix.*,user.username as userName from fix
+        left join user on fix.userId = user.id
+        <where>
+            <if test="params != null and params.reason != null and params.reason != ''">
+                and fix.reason like concat('%', #{ params.reason }, '%')
+            </if>
+            <if test="params != null  and params.id != null">
+                and fix.userId = #{params.id}
+            </if>
+        </where>
+        order by id desc
+    </select>
+    <select id="list" resultType="com.project.properity.pojo.Fix">
+        select * from fix
+        <where>
+            <if test="reason != null">
+                and reason like concat('%',#{reason},'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+</mapper>
